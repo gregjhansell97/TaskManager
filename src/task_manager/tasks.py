@@ -6,15 +6,18 @@ class Task:
     Attributes:
         name(str): name of the task
         description(str): description of the task
-        completed(bool): done or not
     '''
+    
     def __init__(self, name="", description=""):
-        pass #you can get rid of these
+        self.name = name
+        self.description = description
 
     def print(self):
-        pass
-
-
+        print("#"*60)
+        print(self.name)
+        print("-"*50)
+        print(textwrap.fill(self.description, 50))
+        print("#"*60)
 
 
 class Tasks:
@@ -38,42 +41,49 @@ class Tasks:
 
     def mark_done(self, index):
         '''
-        an item in the todo is moved to completed; prints error if out of bounds
+        an item in the todo is moved to done; prints error if out of bounds
 
         Args:
-            index(int): index of todo item being moved to completed
+            index(int): index of todo item being moved to done
         '''
-        pass
+        if index in range(len(self.todo)):
+            self.done.append(self.todo.pop(index))          
+        else:
+            self._index_error(index,"todo",len(todo)-1)
+
 
     def mark_undone(self, index):
         '''
-        an item in the completed is moved to undone; prints error if out of bounds
+        an item in the done is moved to undone; prints error if out of bounds
 
         Args:
-            index(int): index of todo item being moved to completed
+            index(int): index of done item being moved to todo
         '''
-        pass
+        if index in range(len(self.done)):
+            self.todo.append(self.done.pop(index))
+        else:
+            self._index_error(index,"done",len(done)-1)
 
     def print_all(self):
         '''
-        prints all tasks both todo and completed (in that order)
+        prints all tasks both todo and done (in that order)
         '''
-        print_todo()
-        print_completed()
+        self.print_todo()
+        self.print_done()
 
-    def print_completed(self):
+    def print_done(self):
         '''
-        prints all completed tasks
+        prints all done tasks
         '''
-        pass
+        for t in self.done:
+            t.print()
 
     def print_todo(self):
         '''
         prints all tasks that need to be done
         '''
-        for t in self.tasks:
-            if !t.completed:
-                t.print()
+        for t in self.todo:
+            t.print()
 
     def save(self, file_name="data.yaml"):
         '''
