@@ -1,3 +1,4 @@
+import textwrap
 import yaml
 
 class Task:
@@ -14,11 +15,11 @@ class Task:
         self.description = description
 
     def print(self):
-        print("#"*60)
+        print("#"*80)
         print(self.name)
-        print("-"*50)
-        print(textwrap.fill(self.description, 50))
-        print("#"*60)
+        print("-"*80)
+        print(textwrap.fill(self.description, 80))
+        print("#"*80)
 
 
 class Tasks:
@@ -39,7 +40,7 @@ class Tasks:
         '''
         self.done = []
         self.todo = []
-        with open(file_name="data.yaml", "r") as f:
+        with open(file_name, "r") as f:
             data = yaml.load(f)
             self.done = data["done"]
             self.todo = data["todo"]
@@ -101,7 +102,7 @@ class Tasks:
             data = {"todo": self.todo, "done": self.done}
             yaml.dump(data, f)
 
-    def remove_completed(self, index):
+    def remove_done(self, index):
         '''
         removes a completed task
         '''
