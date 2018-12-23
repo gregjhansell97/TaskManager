@@ -1,3 +1,4 @@
+import yaml
 
 class Task:
     '''
@@ -36,8 +37,12 @@ class Tasks:
         Args:
             file_name(str): the name of the file to load from
         '''
-        self.completed = []
+        self.done = []
         self.todo = []
+        with open(file_name="data.yaml", "r") as f:
+            data = yaml.load(f)
+            self.done = data["done"]
+            self.todo = data["todo"]
 
     def mark_done(self, index):
         '''
@@ -88,8 +93,13 @@ class Tasks:
     def save(self, file_name="data.yaml"):
         '''
         saves current status of tasks
+ 
+        Args:
+            file_name(str): the name of the file
         '''
-        pass #use pyaml like in init
+        with open(file_name, "w") as f:
+            data = {"todo": self.todo, "done": self.done}
+            yaml.dump(data, f)
 
     def remove_completed(self, index):
         '''
@@ -124,6 +134,14 @@ class Tasks:
          '''
          pass
 
-    def _index_error(self, index, list_name, max_size):
-        print(f"invalid index {index} for list {list_name} of range [0: {max_size}]")
+    def _index_error(self, index, list_name, max_index):
+        '''
+        helper to print out index errors
+
+        Args:
+            index(int): the out-of-bounds index
+            list_name(str): the name of the list (either todo or done)
+            max_index(int): the max index 
+        '''
+        print(f"invalid index {index} for list {list_name} of range [0: {max_index}]")
         
