@@ -57,9 +57,9 @@ class Tasks:
             self._index_error(index,"todo",len(todo)-1)
 
 
-    def mark_undone(self, index):
+    def mark_todo(self, index):
         '''
-        an item in the done is moved to undone; prints error if out of bounds
+        an item in the done is moved to todo; prints error if out of bounds
 
         Args:
             index(int): index of done item being moved to todo
